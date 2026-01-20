@@ -1,6 +1,6 @@
 import argparse
-from .models import SearchIndexDef, SearchFieldDef
-from .service import provision_index
+from .domain.models import SearchIndexDef, SearchFieldDef
+from .domain.services import provision_index
 
 def main() -> None:
     parser = argparse.ArgumentParser()
