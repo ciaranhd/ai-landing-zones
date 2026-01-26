@@ -36,3 +36,15 @@ class CreditApplication:
 class RiskAssessment:
     score: float 
     is_high_risk: bool 
+
+    @classmethod
+    def create(
+        cls,
+        score, 
+        is_high_risk
+    ) -> Result["RiskAssessment", Exception]:
+        
+        if not isinstance(score, float): 
+            return Err(ValueError("sore must be of type float"))
+        if not isinstance(is_high_risk, bool):
+            return Err(ValueError("is_high_risk must be of type bool"))

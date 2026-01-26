@@ -12,7 +12,7 @@ class Ok(Generic[T]):
     
 class Err(Generic[E]):
     def __init__(self, e: E) -> None:
-        self._e = E
+        self._e = e
     
     def err(self) -> E:
         return self._e 
