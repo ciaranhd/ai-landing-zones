@@ -9,7 +9,7 @@ class Ok(Generic[T]):
     value: T
 
 @dataclass(frozen=True)
-class Err(Generic[T]): 
+class Err(Generic[E]): 
     error: E
 
 Result = Union[Ok[T], Err[E]]

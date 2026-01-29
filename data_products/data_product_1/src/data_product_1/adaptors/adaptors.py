@@ -1,14 +1,20 @@
+from typing import TYPE_CHECKING, assert_type
 from data_product_1.domain.result import Ok, Err, Result 
 from data_product_1.domain.models import FolderNamesModel
 from data_product_1.adaptors.common import get_spark
+from data_product_1.domain.ports import CreateFolderPort
 
 
 class CreateFolderDatabricksAdapter:
+    
     def create_folders(
+            self,
             folder_names: FolderNamesModel
-        ) -> Result[Ok[None], Exception]:
+        ) -> Result[None, Exception]:
 
-        spark = get_spark()
+        spark = get_spark(
+            app_name='data-product',
+        )
 
         spark.sql(
             f"CREATE VOLUME IF NOT EXISTS `{folder_names.root_folder_name}`."
@@ -18,11 +24,14 @@ class CreateFolderDatabricksAdapter:
 
         return Ok(None)
     
-class CreateFolderLocalAdapter:
-    def create_folders(
-            folder_names: FolderNamesModel
-    ) -> Result[Ok[None], Exception]:
-        pass
+# class CreateFolderLocalAdapter:
+#     def create_folders(
+#             folder_names: FolderNamesModel
+#     ) -> Result[Ok[None], Exception]:
+#         pass
+
+if TYPE_CHECKING:
+    adapter: CreateFolderPort = CreateFolderDatabricksAdapter()
 
 
     

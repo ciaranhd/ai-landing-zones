@@ -334,6 +334,7 @@ source = { editable = "." }
 dependencies = [
     { name = "databricks-connect" },
     { name = "ipython" },
+    { name = "mypy" },
     { name = "numpy" },
     { name = "scikit-learn" },
 ]
@@ -351,6 +352,7 @@ dev = [
 requires-dist = [
     { name = "databricks-connect", specifier = "==15.4.*" },
     { name = "ipython", specifier = ">=9.9.0" },
+    { name = "mypy", specifier = ">=1.19.1" },
     { name = "mypy", marker = "extra == 'dev'", specifier = ">=1.8" },
     { name = "numpy" },
     { name = "pytest", marker = "extra == 'dev'", specifier = ">=8.0" },

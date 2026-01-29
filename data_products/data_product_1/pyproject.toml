@@ -8,6 +8,7 @@ requires-python = ">=3.11"
 dependencies = [
     "databricks-connect==15.4.*",
     "ipython>=9.9.0",
+    "mypy>=1.19.1",
     "numpy",
     "scikit-learn",
 ]
@@ -20,6 +21,7 @@ dev = [
     "ruff",
     "types-requests",
 ]
+
 
 [build-system]
 requires = ["setuptools>=68", "wheel"]
@@ -38,6 +40,9 @@ include = ["data_product_1*"]
 [tool.mypy]
 python_version = "3.11"
 strict = true
+mypy_path = "src"
+namespace_packages = true
+explicit_package_bases = true
 
 warn_unused_ignores = true
 warn_return_any = true

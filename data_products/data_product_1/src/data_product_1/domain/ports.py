@@ -4,21 +4,9 @@ from data_product_1.domain.result import Result, Err, Ok
 
 class CreateFolderPort(Protocol):
     def create_folders(
+            self,
             folder_names: FolderNamesModel
-    ) -> Result[Ok[None], Exception]: 
+    ) -> Result[None, Exception]: 
         ...
 
-class WriteTablePort(Protocol):
-    def write_table(
-        catalog: str,
-        schema: str, 
-        table: str,
-        records: List[CreditApplicationModel],
-        mode: str = 'overwrite'
-        ) -> Result[None, Exception]:
-        ...
 
-class DataSourcePort(Protocol):
-    def load_raw_credit_applications(
-    ) -> Result[List[CreditApplicationModel], Exception]:
-        ...

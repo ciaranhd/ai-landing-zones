@@ -1,0 +1,12 @@
+databricks-connect==15.4.*
+ipython>=9.9.0
+mypy>=1.19.1
+numpy
+scikit-learn
+
+[dev]
+mypy>=1.8
+pytest>=8.0
+pytest-cov
+ruff
+types-requests

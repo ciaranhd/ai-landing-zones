@@ -1,7 +1,7 @@
 from data_product_1.domain.result import Ok, Err, Result 
 from pyspark.sql import SparkSession
 
-def get_spark(app_name: str = "data-product") -> Result[SparkSession]:
+def get_spark(app_name: str = "data-product") -> Result[SparkSession, Exception]:
     """
     Returns a SparkSession that works in:
     - Databricks workspace

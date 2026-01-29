@@ -1,0 +1,17 @@
+README.md
+pyproject.toml
+src/data_product_1/__init__.py
+src/data_product_1/main.py
+src/data_product_1.egg-info/PKG-INFO
+src/data_product_1.egg-info/SOURCES.txt
+src/data_product_1.egg-info/dependency_links.txt
+src/data_product_1.egg-info/requires.txt
+src/data_product_1.egg-info/top_level.txt
+src/data_product_1/adaptors/adaptors.py
+src/data_product_1/adaptors/common.py
+src/data_product_1/domain/__init__.py
+src/data_product_1/domain/errors.py
+src/data_product_1/domain/models.py
+src/data_product_1/domain/ports.py
+src/data_product_1/domain/result.py
+src/data_product_1/domain/services.py

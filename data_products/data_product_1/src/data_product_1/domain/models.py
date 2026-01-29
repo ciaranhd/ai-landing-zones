@@ -44,11 +44,11 @@ class FolderNamesModel:
     @classmethod
     def create(
         cls,
-        root_folder_name,
-        sub_folder_raw_name,
-        sub_folder_curated_name, 
-        sub_folder_published_name
-     ) -> Result[Ok["FolderNamesModel"], Exception]:
+        root_folder_name: str,
+        sub_folder_raw_name: str,
+        sub_folder_curated_name : str, 
+        sub_folder_published_name : str
+     ) -> Result["FolderNamesModel", Exception]:
         
         if not isinstance(root_folder_name, str):
             return Err(TypeError("Root folder name must of type str"))
