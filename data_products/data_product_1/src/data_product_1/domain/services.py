@@ -1,18 +1,35 @@
 from data_product_1.domain.ports import CreateFolderPort
-from data_product_1.domain.result import Ok, Err, Result
 from data_product_1.domain.models import FolderNamesModel
+from data_product_1.domain.result import Ok, Err, Result 
 
 
 
 def create_folders_service(
-     create_folders: CreateFolderPort,
-     folder_names: FolderNamesModel
-) -> Result[None, Exception]:
+        folder_names: FolderNamesModel,
+        port: CreateFolderPort,
+        environment: str,  
+    ) -> Result[Ok[None], Exception]:
     
-    result = create_folders(folder_names)
+    #Model
+    result = folder_names.create(
+        root_folder_name=f'{environment}_risk',
+        sub_folder_raw_name='1_raw',
+        sub_folder_curated_name='2_curated',
+        sub_folder_published_name='3_published'  
+    )
 
     if not isinstance(result, Ok):
-        raise KeyError # Complete
+        raise Err(TypeError(result.error))
+    
+    #Port/Adaptor
+    result = port.create_folders(
+        folder_names = result.value
+    )
+
+    if not isinstance(result, Ok):
+        raise Err(TypeError(result.error))
+    
+    return Ok[None]
 
     
 

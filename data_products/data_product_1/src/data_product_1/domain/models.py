@@ -12,10 +12,10 @@ class CreditApplicationModel:
     @classmethod
     def create(
         cls,
-        application_id,
-        income, 
-        debt, 
-        employment_years
+        application_id: str,
+        income: float, 
+        debt: float, 
+        employment_years: int
      ) -> Result["CreditApplicationModel", Exception]:
         
         if not isinstance(application_id, str):
@@ -27,7 +27,11 @@ class CreditApplicationModel:
         if not isinstance(employment_years, int):
             return Err(TypeError("employment_years must be of type int"))
         
-        return Ok(cls(application_id, income, debt, employment_years))
+        return Ok(cls(
+            application_id=application_id,
+            income=income, debt=debt,
+            employment_years=employment_years
+            ))
         
     
 @dataclass(frozen=True)
@@ -44,7 +48,7 @@ class FolderNamesModel:
         sub_folder_raw_name,
         sub_folder_curated_name, 
         sub_folder_published_name
-     ) -> Result["FolderNamesModel", Exception]:
+     ) -> Result[Ok["FolderNamesModel"], Exception]:
         
         if not isinstance(root_folder_name, str):
             return Err(TypeError("Root folder name must of type str"))

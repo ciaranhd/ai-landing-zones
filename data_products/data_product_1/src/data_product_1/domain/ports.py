@@ -1,11 +1,11 @@
 from typing import Protocol, List
 from data_product_1.domain.models import CreditApplicationModel, FolderNamesModel
-from data_product_1.domain.result import Result
+from data_product_1.domain.result import Result, Err, Ok
 
 class CreateFolderPort(Protocol):
     def create_folders(
             folder_names: FolderNamesModel
-    ) -> Result[None, Exception]: 
+    ) -> Result[Ok[None], Exception]: 
         ...
 
 class WriteTablePort(Protocol):
