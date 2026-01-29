@@ -1,0 +1,63 @@
+[project]
+name = "data-product-1"
+version = "0.1.0"
+description = "Demo to create Model Ready Data Product"
+readme = "README.md"
+requires-python = ">=3.11"
+
+dependencies = [
+    "databricks-connect==15.4.*",
+    "ipython>=9.9.0",
+    "numpy",
+    "scikit-learn",
+]
+
+[project.optional-dependencies]
+dev = [
+    "mypy>=1.8",
+    "pytest>=8.0",
+    "pytest-cov",
+    "ruff",
+    "types-requests",
+]
+
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["data_product_1*"]
+
+# --------------------
+# mypy configuration
+# --------------------
+[tool.mypy]
+python_version = "3.11"
+strict = true
+
+warn_unused_ignores = true
+warn_return_any = true
+warn_unreachable = true
+
+disallow_any_unimported = true
+disallow_any_expr = true
+disallow_any_generics = true
+disallow_any_decorated = true
+
+no_implicit_optional = true
+check_untyped_defs = true
+
+exclude = [
+    "tests/",
+]
+
+# --------------------
+# pytest (optional)
+# --------------------
+[tool.pytest.ini_options]
+addopts = "-ra -q"
+testpaths = ["tests"]

@@ -1,6 +1,3 @@
-
-
-
 from typing import List
 from .ports import ModelTrainerPort
 from .models import CreditApplication
@@ -23,6 +20,3 @@ def train_model(
     model_fn = Ok(train(data))
 
     return model_fn
-
-
-def ingest_from_storage(): ...

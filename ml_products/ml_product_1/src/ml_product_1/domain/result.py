@@ -5,7 +5,7 @@ T = TypeVar("T")
 E = TypeVar("E")
 
 @dataclass(frozen=True)
-class Ok(Generic[T]):
+class Ok(Generic["T"]):
     value: T
 
 @dataclass(frozen=True)
