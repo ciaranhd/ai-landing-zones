@@ -1,8 +1,6 @@
-from typing import TYPE_CHECKING, assert_type
 from data_product_1.domain.result import Ok, Err, Result 
 from data_product_1.domain.models import FolderNamesModel
 from data_product_1.adaptors.common import get_spark
-from data_product_1.domain.ports import CreateFolderPort
 
 
 class CreateFolderDatabricksAdapter:
@@ -25,16 +23,6 @@ class CreateFolderDatabricksAdapter:
         )
         return Ok(None)
     
-# class CreateFolderLocalAdapter:
-#     def create_folders(
-#             folder_names: FolderNamesModel
-#     ) -> Result[Ok[None], Exception]:
-#         pass
-
-if TYPE_CHECKING:
-    adapter: CreateFolderPort = CreateFolderDatabricksAdapter()
-
-
     
     
     

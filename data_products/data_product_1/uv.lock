@@ -336,6 +336,7 @@ dependencies = [
     { name = "ipython" },
     { name = "mypy" },
     { name = "numpy" },
+    { name = "ruff" },
     { name = "scikit-learn" },
 ]
 
@@ -357,6 +358,7 @@ requires-dist = [
     { name = "numpy" },
     { name = "pytest", marker = "extra == 'dev'", specifier = ">=8.0" },
     { name = "pytest-cov", marker = "extra == 'dev'" },
+    { name = "ruff", specifier = ">=0.14.14" },
     { name = "ruff", marker = "extra == 'dev'" },
     { name = "scikit-learn" },
     { name = "types-requests", marker = "extra == 'dev'" },

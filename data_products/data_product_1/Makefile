@@ -1,4 +1,5 @@
 .PHONY: mypy lint precommit-install precommit-run
+PYRUN = uv run
 
 SRC ?= src/data_product_1
 
@@ -12,7 +13,11 @@ help:
 mypy:
 	uv run mypy $(SRC)
 
-lint: mypy
+ruff:
+	$(PYRUN) ruff check $(SRC)
+	$(PYRUN) ruff check --select F --show-files $(SRC) # Optional: strict error-only
+
+lint: mypy ruff
 
 precommit-install:
 	uv run pre-commit install

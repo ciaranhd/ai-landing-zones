@@ -1,5 +1,4 @@
 from dataclasses import dataclass 
-from data_product_1.domain.result import Result, Err, Ok 
 
 @dataclass(frozen=True)
 class CreditApplicationModel:

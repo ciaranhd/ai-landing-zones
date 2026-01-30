@@ -1,7 +1,6 @@
 from data_product_1.domain.services import create_folders_service
-from data_product_1.domain.models import FolderNamesModel
 from data_product_1.adaptors.adaptors import CreateFolderDatabricksAdapter
-from data_product_1.domain.result import Err, Ok, Result
+from data_product_1.domain.result import Ok
 
 
 def main(environment: str) -> None: 
@@ -15,6 +14,12 @@ def main(environment: str) -> None:
         port=adaptor,
         environment=environment
     )
+
+    if isinstance(result, Ok):
+        print(result.value)
+
+
+    
     
 
 

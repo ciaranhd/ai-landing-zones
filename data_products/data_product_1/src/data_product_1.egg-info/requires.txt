@@ -2,6 +2,7 @@ databricks-connect==15.4.*
 ipython>=9.9.0
 mypy>=1.19.1
 numpy
+ruff>=0.14.14
 scikit-learn
 
 [dev]

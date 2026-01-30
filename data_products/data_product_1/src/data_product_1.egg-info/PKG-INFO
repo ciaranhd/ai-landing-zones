@@ -8,6 +8,7 @@ Requires-Dist: databricks-connect==15.4.*
 Requires-Dist: ipython>=9.9.0
 Requires-Dist: mypy>=1.19.1
 Requires-Dist: numpy
+Requires-Dist: ruff>=0.14.14
 Requires-Dist: scikit-learn
 Provides-Extra: dev
 Requires-Dist: mypy>=1.8; extra == "dev"

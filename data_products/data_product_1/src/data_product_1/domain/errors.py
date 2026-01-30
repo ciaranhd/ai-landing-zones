@@ -4,11 +4,11 @@ class MissingInputError(BaseException):
 class NoCatalogNameProvidedError(MissingInputError):
     def __str__(self) -> str:
         return (
-            f"Must provide databricks unity catalog name"
+            "Must provide databricks unity catalog name"
         )
 
 class NoSchemaNameProvidedError(BaseException):
     def __str__(self) -> str:
         return(
-            f"Must provide databricks unity catalog schema name"
+            "Must provide databricks unity catalog schema name"
         )
