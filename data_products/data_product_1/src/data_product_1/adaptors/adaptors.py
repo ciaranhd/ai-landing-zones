@@ -6,22 +6,23 @@ from data_product_1.domain.ports import CreateFolderPort
 
 
 class CreateFolderDatabricksAdapter:
-    
-    def create_folders(
+    def create(
             self,
             folder_names: FolderNamesModel
         ) -> Result[None, Exception]:
 
-        spark = get_spark(
+        result = get_spark(
             app_name='data-product',
         )
 
-        spark.sql(
+        if not isinstance(result, Ok):
+            return Err(result.error)
+
+        result.value.sql(
             f"CREATE VOLUME IF NOT EXISTS `{folder_names.root_folder_name}`."
             f"`{folder_names.sub_folder_raw_name}`."
             f"`{folder_names.sub_folder_raw_name}`"  
         )
-
         return Ok(None)
     
 # class CreateFolderLocalAdapter:

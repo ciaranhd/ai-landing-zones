@@ -4,20 +4,15 @@ from data_product_1.adaptors.adaptors import CreateFolderDatabricksAdapter
 from data_product_1.domain.result import Err, Ok, Result
 
 
-def main(environment) -> None: 
+def main(environment: str) -> None: 
     '''
     Composition Root
     Notes: Only pass in objects. There is to be no business logic
     '''
-
-
-    #adaptor/port
-    adaptor_port = CreateFolderDatabricksAdapter()
-
+    adaptor = CreateFolderDatabricksAdapter()
     #Service 
     result = create_folders_service(
-        folder_names=FolderNamesModel,
-        port=adaptor_port,
+        port=adaptor,
         environment=environment
     )
     

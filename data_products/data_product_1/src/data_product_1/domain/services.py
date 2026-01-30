@@ -5,7 +5,6 @@ from data_product_1.domain.result import Ok, Err, Result
 
 
 def create_folders_service(
-        folder_names: FolderNamesModel,
         port: CreateFolderPort,
         environment: str,  
     ) -> Result[None, Exception]:
@@ -23,21 +22,20 @@ def create_folders_service(
     :return: Description
     :rtype: Result[Ok[None], Exception]
     '''
-    
+
     #Model
-    folder_result = folder_names.create(
+    model = FolderNamesModel(
         root_folder_name=f'{environment}_risk',
         sub_folder_raw_name='1_raw',
         sub_folder_curated_name='2_curated',
         sub_folder_published_name='3_published'  
     )
 
-    if not isinstance(folder_result, Ok):
-        return Err(folder_result.error)  # propagate the original error
+
     
     #Port/Adaptor
-    result = port.create_folders(
-        folder_names = result.value
+    result = port.create(
+        model = model
     )
 
     if not isinstance(result, Ok):

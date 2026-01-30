@@ -3,9 +3,9 @@ from data_product_1.domain.models import CreditApplicationModel, FolderNamesMode
 from data_product_1.domain.result import Result, Err, Ok
 
 class CreateFolderPort(Protocol):
-    def create_folders(
+    def create(
             self,
-            folder_names: FolderNamesModel
+            model: FolderNamesModel
     ) -> Result[None, Exception]: 
         ...
 
