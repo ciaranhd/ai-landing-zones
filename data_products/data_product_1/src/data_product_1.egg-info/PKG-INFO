@@ -4,12 +4,15 @@ Version: 0.1.0
 Summary: Demo to create Model Ready Data Product
 Requires-Python: >=3.11
 Description-Content-Type: text/markdown
+Requires-Dist: azure-cli==2.82.0
+Requires-Dist: azure-search-documents==11.7.0b2
 Requires-Dist: databricks-connect==15.4.*
 Requires-Dist: ipython>=9.9.0
-Requires-Dist: mypy>=1.19.1
+Requires-Dist: langchain>=1.2.7
 Requires-Dist: numpy
-Requires-Dist: ruff>=0.14.14
+Requires-Dist: pip-licenses>=5.5.1
 Requires-Dist: scikit-learn
+Requires-Dist: semantic-kernel>=1.37.0
 Provides-Extra: dev
 Requires-Dist: mypy>=1.8; extra == "dev"
 Requires-Dist: pytest>=8.0; extra == "dev"

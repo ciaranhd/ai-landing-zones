@@ -15,12 +15,22 @@ mypy:
 
 ruff:
 	$(PYRUN) ruff check $(SRC)
-	$(PYRUN) ruff check --select F --show-files $(SRC) # Optional: strict error-only
 
-lint: mypy ruff
 
-precommit-install:
-	uv run pre-commit install
 
-precommit-run:
-	uv run pre-commit run --all-files
+lint: ruff mypy
+
+bandit:
+	uv run bandit -r src/data_product_1 -ll -ii
+safety:
+	uv run safety check --full-report
+
+# Tests
+test:
+	uv run pytest tests
+coverage:
+	uv run pytest --cov=src/data_product_1 --cov-report=term-missing tests
+
+
+
+

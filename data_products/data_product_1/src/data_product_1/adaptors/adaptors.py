@@ -6,7 +6,7 @@ from data_product_1.adaptors.common import get_spark
 class CreateFolderDatabricksAdapter:
     def create(
             self,
-            folder_names: FolderNamesModel
+            folder_names: FolderNamesModel,
         ) -> Result[None, Exception]:
 
         result = get_spark(
@@ -23,6 +23,12 @@ class CreateFolderDatabricksAdapter:
         )
         return Ok(None)
     
+class CreateFolderLocally:
+    pass
+
+
+class CreateFolderSnowflake:
+    pass
     
     
     

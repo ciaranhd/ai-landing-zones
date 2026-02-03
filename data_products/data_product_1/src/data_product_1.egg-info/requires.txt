@@ -1,9 +1,12 @@
+azure-cli==2.82.0
+azure-search-documents==11.7.0b2
 databricks-connect==15.4.*
 ipython>=9.9.0
-mypy>=1.19.1
+langchain>=1.2.7
 numpy
-ruff>=0.14.14
+pip-licenses>=5.5.1
 scikit-learn
+semantic-kernel>=1.37.0
 
 [dev]
 mypy>=1.8

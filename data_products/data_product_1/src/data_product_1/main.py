@@ -1,8 +1,12 @@
+# Databricks Notebook Source
+
 from data_product_1.domain.services import create_folders_service
-from data_product_1.adaptors.adaptors import CreateFolderDatabricksAdapter
+from data_product_1.adaptors.adaptors import  CreateFolderDatabricksAdapter
 from data_product_1.domain.result import Ok
 
+# ------------
 
+# ------------
 def main(environment: str) -> None: 
     '''
     Composition Root
@@ -12,8 +16,8 @@ def main(environment: str) -> None:
     #Service 
     result = create_folders_service(
         port=adaptor,
-        environment=environment
-    )
+        environment=environment,
+        )
 
     if isinstance(result, Ok):
         print(result.value)
