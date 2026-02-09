@@ -6,6 +6,10 @@ from typing import List
 
 def main() -> None:
     
+    # Data ingestion is a toy use case. Production would ingest from spark dataframe or local data
+    # Create a Service for data ingestion, with port + adaptors for local, and remote 
+    # We want to be able to decouple from the data ingestion layer, and therefore swap it 
+    # at will
     data_1 = CreditApplication(
         application_id=123,
         income=100.00,
@@ -40,7 +44,7 @@ def main() -> None:
     if not isinstance(result, Ok):
         raise result.error
     
-    
+
 
 
 
