@@ -16,3 +16,9 @@ class EmptyTrainingDataSetError(TrainingError):
         return (
             "Cannot train data with empty data set"
         )
+    
+class TrainingDataLabelError(TrainingError):
+    def __str__(self) -> str:
+        return (
+            "Only one label class present in the training data"
+        )

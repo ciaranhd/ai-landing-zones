@@ -1,0 +1,7 @@
+databricks-connect==15.4.0
+ipython>=9.10.0
+mlflow>=3.9.0
+numpy>=1.26.4
+scikit-learn>=1.8.0
+
+[dev]
