@@ -1,0 +1,23 @@
+artifact_path: file:///C:/Users/CiaranDiamond/github/ai-landing-zones/ml_products/credit_decision/mlruns/2/models/m-314ca731593e4c90ac185e768d2cc482/artifacts
+flavors:
+  python_function:
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.sklearn
+    model_path: model.pkl
+    predict_fn: predict
+    python_version: 3.11.13
+  sklearn:
+    code: null
+    pickled_model: model.pkl
+    serialization_format: cloudpickle
+    sklearn_version: 1.8.0
+    skops_trusted_types: null
+mlflow_version: 3.9.0
+model_id: m-314ca731593e4c90ac185e768d2cc482
+model_size_bytes: 47395
+model_uuid: m-314ca731593e4c90ac185e768d2cc482
+prompts: null
+run_id: e1031cb43c184cc7bdd96c8c63467d1d
+utc_time_created: '2026-02-10 15:09:36.646690'

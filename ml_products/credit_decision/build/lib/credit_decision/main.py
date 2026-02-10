@@ -5,6 +5,7 @@ from credit_decision.domain.result import Ok
 from typing import List
 
 def main() -> None:
+    
     # Data ingestion is a toy use case. Production would ingest from spark dataframe or local data
     # Create a Service for data ingestion, with port + adaptors for local, and remote 
     # We want to be able to decouple from the data ingestion layer, and therefore swap it 
@@ -22,6 +23,8 @@ def main() -> None:
         debt=10.00,
         employment_years=3
     )
+
+
 
     adaptor = ModelTrainingAdaptorRandomForest()
     result = create_decisioning_model(
@@ -42,5 +45,8 @@ def main() -> None:
     if not isinstance(result, Ok):
         raise result.error
     
+
+
+
 
     #predict_fn(data_1)

@@ -6,9 +6,10 @@ bundle:
   name: credit_decision
 
 artifacts:
-  credit_decision:
+  default:
     type: whl
     path: .
+    build: uv build --wheel
 
 targets:
   dev:
@@ -27,5 +28,9 @@ resources:
             package_name: credit_decision
             entry_point: credit_decision_train
           libraries:
-            - whl: ${artifacts.credit_decision}
-
+            - whl: dist/credit_decision-0.1.0-py3-none-any.whl
+          new_cluster:
+            spark_version: 15.4.x-scala2.12      # adjust if needed
+            node_type_id: Standard_D4ds_v5        # adjust to your available nodes
+            num_workers: 1
+            data_security_mode: SINGLE_USER
