@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Tuple
 from credit_decision.domain.ports import ModelTrainingPort, ModelLoggingPort
 from credit_decision.domain.models import CreditApplication, RiskAssessment, ModelArtefacts
 from .ports import predict_fn
@@ -8,7 +8,7 @@ from .errors import InsufficientTrainingDataError, EmptyTrainingDataSetError
 def create_decisioning_model(
         port: ModelTrainingPort,
         data: List[CreditApplication]
-    )  -> Result[(predict_fn, ModelArtefacts), Exception]:
+    )  -> Result[Tuple[predict_fn, ModelArtefacts], Exception]:
     '''
     Business logic
     '''
@@ -23,7 +23,7 @@ def create_decisioning_model(
     )
 
     if not isinstance(result, Ok):
-        raise result.error
+        return result.error
     
     return Ok(result.value)
 

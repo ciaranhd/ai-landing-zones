@@ -1,4 +1,4 @@
-from credit_decision.adaptors.ml_model.sk_forest.adaptors import ModelTrainingAdaptorRandomForest
+from credit_decision.adaptors.ml_model.sk_forest.adaptors import ModelTrainingAdaptorRandomForest, ModelLoggingAdaptorMLFlowLocal
 from credit_decision.domain.services import create_decisioning_model, logging_for_decisioning_model
 from credit_decision.domain.models import CreditApplication
 from credit_decision.domain.result import Ok
@@ -38,6 +38,7 @@ def main() -> None:
     predict_fn, model_artefacts = result.value
 
     result = logging_for_decisioning_model(
+        port=ModelLoggingAdaptorMLFlowLocal,
         model_artefacts=model_artefacts
     )
 

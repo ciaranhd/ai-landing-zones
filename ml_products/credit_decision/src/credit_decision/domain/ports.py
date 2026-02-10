@@ -1,4 +1,4 @@
-from typing import Protocol, List, Callable
+from typing import Protocol, List, Callable, Tuple
 from credit_decision.domain.models import CreditApplication, RiskAssessment, ModelArtefacts
 from credit_decision.domain.result import Result
 
@@ -9,7 +9,7 @@ class ModelTrainingPort(Protocol):
     def create(
             self, 
             data: List[CreditApplication]
-    ) ->  Result[(predict_fn, ModelArtefacts), Exception]:
+    ) ->  Result[Tuple[predict_fn, ModelArtefacts], Exception]:
         '''
         Model Training Port for training decisioning models
         '''

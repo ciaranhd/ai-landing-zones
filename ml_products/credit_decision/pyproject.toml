@@ -17,6 +17,8 @@ dependencies = [
 dev = [
 ]
 
+[project.scripts]
+credit_decision_train = "credit_decision.main:main"
 
 [build-system]
 requires = ["setuptools>=68", "wheel"]

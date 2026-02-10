@@ -5,6 +5,11 @@
 bundle:
   name: credit_decision
 
+artifacts:
+  credit_decision:
+    type: whl
+    path: .
+
 targets:
   dev:
     mode: development
@@ -12,8 +17,15 @@ targets:
     workspace:
       host: https://adb-2819924163715696.16.azuredatabricks.net
 
-  ## Optionally, there could be 'staging' or 'prod' targets here.
-  #
-  # prod:
-  #   workspace:
-  #     host: https://adb-2819924163715696.16.azuredatabricks.net
+resources:
+  jobs:
+    train_model:
+      name: train_credit_model
+      tasks:
+        - task_key: train
+          python_wheel_task:
+            package_name: credit_decision
+            entry_point: credit_decision_train
+          libraries:
+            - whl: ${artifacts.credit_decision}
+

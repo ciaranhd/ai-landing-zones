@@ -1,6 +1,6 @@
 import numpy as np
 from sklearn.ensemble import RandomForestClassifier
-from typing import List
+from typing import List, Tuple
 from credit_decision.domain.models import CreditApplication, RiskAssessment, ModelArtefacts, DatasetStats, TrainingMetrics
 from credit_decision.domain.ports import predict_fn 
 from credit_decision.adaptors.ml_model.sk_forest.config import RandomForestConfig
@@ -12,7 +12,7 @@ class ModelTrainingAdaptorRandomForest:
     def __init__(self) -> None:
         self.config = RandomForestConfig(n_estimators=100, max_depth=5, threshold=0.4)
 
-    def create(self, data: List[CreditApplication]) -> Result[(predict_fn, ModelArtefacts), Exception]:
+    def create(self, data: List[CreditApplication]) -> Result[Tuple[predict_fn, ModelArtefacts], Exception]:
         # 1. Transform domain objects to technical inputs 
         # This keeps the domain free of 'import numpy' etc
         features = np.array(
@@ -28,7 +28,7 @@ class ModelTrainingAdaptorRandomForest:
         )
 
         if len(set(labels)) < 2:
-            return Err(TrainingDataLabelError)
+            return Err(TrainingDataLabelError())
 
         clf = RandomForestClassifier(
             n_estimators=self.config.n_estimators,
@@ -74,15 +74,24 @@ class ModelTrainingAdaptorRandomForest:
 
 
 class ModelLoggingAdaptorMLFlowLocal:
-    def create(
-        self,
-        model_artefacts: ModelArtefacts
-    ) -> None:
-        mlflow.log_params(vars(model_artefacts.dataset_stats.sample_count))
-        mlflow.log_metric("samples", model_artefacts.dataset_stats.sample_count)
-        mlflow.log_metric("postitive_rate", model_artefacts.dataset_stats.positive_rate)
-        mlflow.log_metric("positive_class_probability_mean", model_artefacts.metrics.positive_class_probability_mean)
+    def create(model_artefacts: ModelArtefacts):
+        with mlflow.start_run():
+            mlflow.log_metric(
+                "samples_count",
+                model_artefacts.dataset_stats.sample_count
+            )
+            mlflow.log_metric(
+                "positive_rate",
+                model_artefacts.dataset_stats.positive_rate
+            )
+            mlflow.log_metric(
+                "positive_class_probability_mean",
+                model_artefacts.metrics.positive_class_probability_mean
+            )
 
-        mlflow.sklearn.log_model(model_artefacts.ml_model, artifact_path="model")
+            mlflow.sklearn.log_model(
+                model_artefacts.ml_model,
+                name="model"   # replaces deprecated artifact_path
+            )
 
         return Ok("Success: Logging")

@@ -1,10 +1,12 @@
 README.md
 pyproject.toml
 src/credit_decision/__init__.py
+src/credit_decision/cli.py
 src/credit_decision/main.py
 src/credit_decision.egg-info/PKG-INFO
 src/credit_decision.egg-info/SOURCES.txt
 src/credit_decision.egg-info/dependency_links.txt
+src/credit_decision.egg-info/entry_points.txt
 src/credit_decision.egg-info/requires.txt
 src/credit_decision.egg-info/top_level.txt
 src/credit_decision/adaptors/adaptors.py

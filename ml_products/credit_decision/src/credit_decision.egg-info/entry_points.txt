@@ -1,0 +1,2 @@
+[console_scripts]
+credit_decision_train = credit_decision.main:main
