@@ -44,7 +44,7 @@ include = ["data_product_1*"]
 # mypy configuration
 # --------------------
 [tool.mypy]
-python_version = "3.12"
+python_version = "3.11"
 strict = true
 mypy_path = "src"
 namespace_packages = true

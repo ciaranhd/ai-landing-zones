@@ -10,6 +10,7 @@ dependencies = [
     "ipython>=9.10.0",
     "mlflow>=3.9.0",
     "numpy>=1.26.4",
+    "pip-licenses>=5.5.1",
     "scikit-learn>=1.8.0",
 ]
 
