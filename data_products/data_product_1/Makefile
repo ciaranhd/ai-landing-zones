@@ -16,8 +16,6 @@ mypy:
 ruff:
 	$(PYRUN) ruff check $(SRC)
 
-
-
 lint: ruff mypy
 
 bandit:
@@ -25,12 +23,14 @@ bandit:
 safety:
 	uv run safety check --full-report
 
+license_check:
+	uv run pip-licenses
+	uv run pip-licenses --fail-on "GPL" --partial-match
 # Tests
 test:
 	uv run pytest tests
 coverage:
 	uv run pytest --cov=src/data_product_1 --cov-report=term-missing tests
-
 
 
 

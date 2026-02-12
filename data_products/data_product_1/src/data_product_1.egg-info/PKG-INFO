@@ -7,6 +7,7 @@ Description-Content-Type: text/markdown
 Requires-Dist: azure-cli==2.82.0
 Requires-Dist: azure-search-documents==11.7.0b2
 Requires-Dist: databricks-connect==15.4.*
+Requires-Dist: ipdb>=0.13.13
 Requires-Dist: ipython>=9.9.0
 Requires-Dist: langchain>=1.2.7
 Requires-Dist: numpy

@@ -1,9 +1,15 @@
-# This is a Databricks asset bundle definition for data_product_1.
+# This is a Databricks asset bundle definition for credit_decision.
 # The Databricks extension requires databricks.yml configuration file.
 # See https://docs.databricks.com/dev-tools/bundles/index.html for documentation.
 
 bundle:
   name: data_product_1
+
+artifacts:
+  default:
+    type: whl
+    path: .
+    build: uv build --wheel
 
 targets:
   dev:
@@ -12,8 +18,19 @@ targets:
     workspace:
       host: https://adb-2819924163715696.16.azuredatabricks.net
 
-  ## Optionally, there could be 'staging' or 'prod' targets here.
-  #
-  # prod:
-  #   workspace:
-  #     host: https://adb-2819924163715696.16.azuredatabricks.net
+resources:
+  jobs:
+    train_model:
+      name: publish_data_product_1
+      tasks:
+        - task_key: data_product_1
+          python_wheel_task:
+            package_name: data_product_1
+            entry_point: ''
+          libraries:
+            - whl: dist/data_product_1-0.1.0-py3-none-any.whl
+          new_cluster:
+            spark_version: 15.4.x-scala2.12   
+            node_type_id: Standard_D4ds_v5     
+            num_workers: 1
+            data_security_mode: SINGLE_USER

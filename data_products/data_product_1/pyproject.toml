@@ -9,6 +9,7 @@ dependencies = [
     "azure-cli==2.82.0",
     "azure-search-documents==11.7.0b2",
     "databricks-connect==15.4.*",
+    "ipdb>=0.13.13",
     "ipython>=9.9.0",
     "langchain>=1.2.7",
     "numpy",
