@@ -1,12 +1,19 @@
-import numpy as np
-from sklearn.ensemble import RandomForestClassifier
 from typing import List, Tuple
-from credit_decision.domain.models import CreditApplication, RiskAssessment, ModelArtefacts, DatasetStats, TrainingMetrics
+import numpy as np
+import mlflow
+from sklearn.ensemble import RandomForestClassifier
+from credit_decision.domain.models import (
+    CreditApplication,
+    RiskAssessment,
+    ModelArtefacts,
+    DatasetStats,
+    TrainingMetrics
+    )
 from credit_decision.domain.ports import predict_fn 
 from credit_decision.adaptors.ml_model.sk_forest.config import RandomForestConfig
 from credit_decision.domain.result import Result, Ok, Err
 from credit_decision.domain.errors import TrainingDataLabelError
-import mlflow
+
 
 class ModelTrainingAdaptorRandomForest: 
     def __init__(self) -> None:

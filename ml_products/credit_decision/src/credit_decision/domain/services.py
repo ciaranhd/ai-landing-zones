@@ -1,9 +1,12 @@
 from typing import List, Tuple
-from credit_decision.domain.ports import ModelTrainingPort, ModelLoggingPort
-from credit_decision.domain.models import CreditApplication, RiskAssessment, ModelArtefacts
-from .ports import predict_fn
-from .result import Result, Err, Ok
-from .errors import InsufficientTrainingDataError, EmptyTrainingDataSetError
+from credit_decision.domain.ports import (
+    ModelTrainingPort,
+    ModelLoggingPort,
+    predict_fn
+    )
+from credit_decision.domain.models import CreditApplication, ModelArtefacts
+from credit_decision.domain.result import Result, Err, Ok
+from credit_decision.domain.errors import InsufficientTrainingDataError, EmptyTrainingDataSetError
 
 def create_decisioning_model(
         port: ModelTrainingPort,

@@ -1,8 +1,13 @@
-from credit_decision.adaptors.ml_model.sk_forest.adaptors import ModelTrainingAdaptorRandomForest, ModelLoggingAdaptorMLFlowLocal
-from credit_decision.domain.services import create_decisioning_model, logging_for_decisioning_model
+from credit_decision.adaptors.ml_model.sk_forest.adaptors import (
+    ModelTrainingAdaptorRandomForest, 
+    ModelLoggingAdaptorMLFlowLocal
+    )
+from credit_decision.domain.services import (
+    create_decisioning_model,
+    logging_for_decisioning_model
+    )
 from credit_decision.domain.models import CreditApplication
 from credit_decision.domain.result import Ok
-from typing import List
 
 def main() -> None:
     # Data ingestion is a toy use case. Production would ingest from spark dataframe or local data
@@ -41,6 +46,3 @@ def main() -> None:
 
     if not isinstance(result, Ok):
         raise result.error
-    
-
-    #predict_fn(data_1)

@@ -1,5 +1,9 @@
 from typing import Protocol, List, Callable, Tuple
-from credit_decision.domain.models import CreditApplication, RiskAssessment, ModelArtefacts
+from credit_decision.domain.models import (
+    CreditApplication,
+    RiskAssessment,
+    ModelArtefacts
+    )
 from credit_decision.domain.result import Result
 
 # The Model is treated as a functoin
