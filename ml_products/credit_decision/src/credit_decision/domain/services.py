@@ -17,29 +17,28 @@ def create_decisioning_model(
     '''
 
     if not data:
-        return Err(EmptyTrainingDataSetError)
+        return Err(EmptyTrainingDataSetError())
     if len(data) < 2:
-        return Err(InsufficientTrainingDataError)
+        return Err(InsufficientTrainingDataError())
     
     result = port.create(
         data=data
     )
 
     if not isinstance(result, Ok):
-        return result.error
+        return Err(result.error)
     
     return Ok(result.value)
 
 def logging_for_decisioning_model(
         port: ModelLoggingPort,
-        model_artefacts: ModelArtefacts
-):
+        model_artefacts: ModelArtefacts) -> Result[str, Exception]:
     result = port.create(
         model_artefacts=model_artefacts
     )
 
     if not isinstance(result, Ok): 
-        return Err("test")
+        return Err(Exception())
     
     return Ok(result.value)
 

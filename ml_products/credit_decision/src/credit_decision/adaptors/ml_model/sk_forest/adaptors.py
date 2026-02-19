@@ -9,16 +9,16 @@ from credit_decision.domain.models import (
     DatasetStats,
     TrainingMetrics
     )
-from credit_decision.domain.ports import predict_fn 
+from credit_decision.domain.ports import predict_fn, ModelLoggingPort, ModelTrainingPort 
 from credit_decision.adaptors.ml_model.sk_forest.config import RandomForestConfig
 from credit_decision.domain.result import Result, Ok, Err
-from credit_decision.domain.errors import TrainingDataLabelError
+from credit_decision.domain.errors import TrainingDataLabelError, ModelLoggingError
 
 
-class ModelTrainingAdaptorRandomForest: 
+class ModelTrainingAdaptorRandomForest(ModelTrainingPort): 
     def __init__(self) -> None:
         self.config = RandomForestConfig(n_estimators=100, max_depth=5, threshold=0.4)
-
+    
     def create(self, data: List[CreditApplication]) -> Result[Tuple[predict_fn, ModelArtefacts], Exception]:
         # 1. Transform domain objects to technical inputs 
         # This keeps the domain free of 'import numpy' etc
@@ -80,27 +80,32 @@ class ModelTrainingAdaptorRandomForest:
             
 
 
-class ModelLoggingAdaptorMLFlowLocal:
-    def create(model_artefacts: ModelArtefacts):
-        experiment_path = "/Shared/credit_decision_experiment"
-        mlflow.set_experiment(experiment_name=experiment_path)
-        with mlflow.start_run():
-            mlflow.log_metric(
-                "samples_count",
-                model_artefacts.dataset_stats.sample_count
-            )
-            mlflow.log_metric(
-                "positive_rate",
-                model_artefacts.dataset_stats.positive_rate
-            )
-            mlflow.log_metric(
-                "positive_class_probability_mean",
-                model_artefacts.metrics.positive_class_probability_mean
-            )
+class ModelLoggingAdaptorMLFlowLocal(ModelLoggingPort):
+    def create(self, model_artefacts: ModelArtefacts) -> Result[str, Exception]:
+        try:
+            experiment_path = "/Shared/credit_decision_experiment"
+            mlflow.set_experiment(experiment_name=experiment_path)
 
-            mlflow.sklearn.log_model(
-                model_artefacts.ml_model,
-                name="model"   # replaces deprecated artifact_path
-            )
+            with mlflow.start_run():
+                mlflow.log_metric(
+                    "samples_count",
+                    model_artefacts.dataset_stats.sample_count
+                )
+                mlflow.log_metric(
+                    "positive_rate",
+                    model_artefacts.dataset_stats.positive_rate
+                )
+                mlflow.log_metric(
+                    "positive_class_probability_mean",
+                    model_artefacts.metrics.positive_class_probability_mean
+                )
 
-        return Ok("Success: Logging")
+                mlflow.sklearn.log_model(
+                    model_artefacts.ml_model,
+                    name="model"
+                )
+
+            return Ok("Success: Logging")
+
+        except Exception as exc:
+            return Err(ModelLoggingError(str(exc)))

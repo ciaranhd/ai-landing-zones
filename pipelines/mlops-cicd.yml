@@ -1,0 +1,82 @@
+#   Copyright (c) 2025 4most. All rights reserved.
+
+#   This code is proprietary and confidential. Unauthorized copying of this file,
+#   via any medium, is strictly prohibited. The code contained herein is the
+#   property of 4most and is not to be used, disclosed, or distributed without
+#   prior written permission.
+#  
+#   File: mlops-cicd.yaml
+#   Author: ciaran.diamond@4-most.co.uk
+
+trigger: none
+pr: none
+resources:
+  repositories:
+    - repository: pipeline-templates
+      type: git
+      name: platform-modules/pipeline-templates
+
+variables:
+  - group: 'ado-vg-a-pr-mlops' 
+
+parameters:
+  - name: templateFile
+    type: string
+    default: infra/main.bicep
+  - name: poolName
+    type: string
+    default: mdp-p-prd-mgmt-uksouth-001
+
+
+stages:
+# ============================== BUILD (DEV) =========================================
+
+  - template: stages/stage.build.yml
+    parameters:
+      poolName: ${{ parameters.poolName }}
+      templateFile: ${{ parameters.templateFile }}
+      env_object:
+        environment: dev
+        outputPath: build_dev_landing_dev
+        stageName: stg_build_ai_landing_zone_dev
+        dependsOnName: []
+
+# ============================== BUILD (PRD) =========================================
+
+  - template: stages/stage.build.yml
+    parameters:
+      poolName: ${{ parameters.poolName }}
+      templateFile: ${{ parameters.templateFile }}
+      env_object:
+        environment: prd
+        outputPath: build_ai_landing_zone_prd
+        stageName: stg_build_ai_landing_zone_prd
+        dependsOnName: []
+
+# ============================== RELEASE (DEV) ================================
+
+  - template: stages/stage.release.yml
+    parameters:
+      poolName: ${{ parameters.poolName }}
+      env_object:
+        environment: dev
+        subscriptionId: 09a52fde-3aa6-4ae2-9c35-43f3f19f521a
+        serviceConnection: sc-a-pr-dev-corp-uksouth-mlops-001
+        stageName: stg_release_ai_landing_zone_dev
+        jobName: job_release_ai_landing_zone_dev
+        artifactNameBicep: bicep_artifacts_dev
+        dependsOnName: [stg_build_ai_landing_zone_dev, stg_build_ai_landing_zone_prd]
+
+# ============================== RELEASE (PRD) ================================
+
+  - template: stages/stage.release.yml
+    parameters:
+      poolName: ${{ parameters.poolName }}
+      env_object:
+        environment: prd
+        subscriptionId: 607c18cd-1185-4264-a6da-8b0a2629d4b0
+        serviceConnection: sc-a-pr-prd-corp-uksouth-mlops-001
+        stageName: stg_release_ai_landing_zone_prd
+        jobName: job_release_ai_landing_zone_prd
+        artifactNameBicep: bicep_artifacts_prd
+        dependsOnName: [stg_release_ai_landing_zone_dev]

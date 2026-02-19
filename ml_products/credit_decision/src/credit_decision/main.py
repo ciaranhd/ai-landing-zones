@@ -7,7 +7,7 @@ from credit_decision.domain.services import (
     logging_for_decisioning_model
     )
 from credit_decision.domain.models import CreditApplication
-from credit_decision.domain.result import Ok
+from credit_decision.domain.result import Ok, Err
 
 def main() -> None:
     # Data ingestion is a toy use case. Production would ingest from spark dataframe or local data
@@ -28,21 +28,23 @@ def main() -> None:
         employment_years=3
     )
 
-    adaptor = ModelTrainingAdaptorRandomForest()
-    result = create_decisioning_model(
-        port=adaptor,
+ 
+    training_result = create_decisioning_model(
+        port=ModelTrainingAdaptorRandomForest(),
         data=[data_1, data_2]
     )
 
-    if not isinstance(result, Ok):
-        print("error") # fix
+    if not isinstance(training_result, Ok):
+        raise training_result.error
 
-    predict_fn, model_artefacts = result.value
+    if isinstance(training_result, Ok):
+        _, model_artefacts = training_result.value
 
-    result = logging_for_decisioning_model(
-        port=ModelLoggingAdaptorMLFlowLocal,
+
+    logging_result = logging_for_decisioning_model(
+        port=ModelLoggingAdaptorMLFlowLocal(),
         model_artefacts=model_artefacts
     )
 
-    if not isinstance(result, Ok):
-        raise result.error
+    if not isinstance(logging_result, Ok):
+        raise logging_result.error

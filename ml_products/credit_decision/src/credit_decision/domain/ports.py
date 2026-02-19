@@ -1,4 +1,4 @@
-from typing import Protocol, List, Callable, Tuple
+from typing import Protocol, List, Callable, Tuple, runtime_checkable
 from credit_decision.domain.models import (
     CreditApplication,
     RiskAssessment,
@@ -9,6 +9,7 @@ from credit_decision.domain.result import Result
 # The Model is treated as a functoin
 predict_fn = Callable[[ CreditApplication ], RiskAssessment]
 
+@runtime_checkable
 class ModelTrainingPort(Protocol):
     def create(
             self, 
@@ -19,7 +20,7 @@ class ModelTrainingPort(Protocol):
         '''
 
         ...
-
+@runtime_checkable
 class ModelLoggingPort(Protocol):
     def create(
             self,

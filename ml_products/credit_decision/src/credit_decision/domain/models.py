@@ -1,6 +1,5 @@
 from dataclasses import dataclass 
-from credit_decision.adaptors.ml_model.sk_forest.config import RandomForestConfig
-from sklearn.ensemble import RandomForestClassifier
+from typing import Any
 
 @dataclass(frozen=True)
 class CreditApplication:
@@ -9,12 +8,10 @@ class CreditApplication:
     debt: float
     employment_years: int 
 
-
 @dataclass(frozen=True)
 class RiskAssessment:
     score: float 
     is_high_risk: bool 
-
 
 @dataclass(frozen=True)
 class DatasetStats:
@@ -29,5 +26,5 @@ class TrainingMetrics:
 class ModelArtefacts:
     dataset_stats: DatasetStats
     metrics: TrainingMetrics
-    config: RandomForestConfig
-    ml_model: RandomForestClassifier
+    config: Any
+    ml_model: Any
